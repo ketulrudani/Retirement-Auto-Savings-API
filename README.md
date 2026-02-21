@@ -33,11 +33,10 @@ uv run uvicorn app.main:app --host 0.0.0.0 --port 5477
 ## Docker
 
 ```bash
-# Build (replace {name-lastname} with your identifier)
-docker build -t blk-hacking-ind-{name-lastname} .
+docker build -t blk-hacking-ind-ketul-patel .
 
 # Run
-docker run -d -p 5477:5477 blk-hacking-ind-{name-lastname}
+docker run -d -p 5477:5477 blk-hacking-ind-ketul-patel
 ```
 
 Or with Docker Compose:

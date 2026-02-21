@@ -3,7 +3,7 @@
 services:
   api:
     build: .
-    image: blk-hacking-ind-{ketul-patel}
+    image: blk-hacking-ind-ketul-patel
     ports:
       - "5477:5477"
     # No external dependencies; single service.
