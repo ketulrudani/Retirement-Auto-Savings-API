@@ -1,6 +1,6 @@
 # Test type: Unit
-# Validation: Tax slabs, NPS deduction, tax benefit, compound interest, inflation adjustment, years to retirement.
-# Command: uv run pytest test/test_returns.py -v
+# Validation: Tax slabs, NPS deduction, tax benefit, compound interest, inflation adjustment, years to retirement, profits.
+# Command: uv run pytest test/test_profits.py -v
 
 import pytest
 
@@ -55,12 +55,14 @@ def test_tax_benefit():
     assert tax_benefit(600_000, 145) == 0
 
 
-def test_compute_return_nps():
+def test_compute_profits_nps():
     profit, tax_ben, future = compute_return(145, 29, 0.055, "nps", 600_000)
     assert abs(profit - 86.88) < 2
     assert tax_ben == 0
 
 
-def test_compute_return_index():
-    real, _, _ = compute_return(145, 29, 0.055, "index", 0)
-    assert abs(real - 1829.5) < 20
+def test_compute_profits_index():
+    # profit = inflation-adjusted gain (real terminal value - principal), same as NPS
+    profit, _, _ = compute_return(145, 29, 0.055, "index", 0)
+    # real terminal value ~1829.5, so profit ~1829.5 - 145
+    assert abs(profit - (1829.5 - 145)) < 20

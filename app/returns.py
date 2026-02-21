@@ -80,7 +80,7 @@ def compute_return(
     rate = NPS_RATE if kind == "nps" else INDEX_RATE
     future = compound_amount(amount, rate, t)
     real = inflation_adjust(future, inflation, t)
-    profit = real - amount if kind == "nps" else real
+    profit = real - amount  # inflation-adjusted gain (same meaning for nps and index)
 
     tax_ben = None
     if kind == "nps":

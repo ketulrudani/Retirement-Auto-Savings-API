@@ -15,7 +15,7 @@ router = APIRouter()
 
 def _run_returns_pipeline(req: ReturnsRequest) -> tuple[list, list]:
     """Run parse -> q -> p -> k; return (transactions as tuples, k_sums)."""
-    expenses = [(t.date, t.amount) for t in req.transactions]
+    expenses = [(t.date, t.amount) for t in req.transactions if t.amount > 0]
     raw = domain.parse_expenses(expenses)
     raw = domain.apply_q_rules(raw, req.q)
     raw = domain.apply_p_rules(raw, req.p)
@@ -49,7 +49,7 @@ def returns_nps(body: ReturnsRequest) -> ReturnsResponse:
 
     return ReturnsResponse(
         transactionsTotalAmount=total_amount,
-        totalCeiling=total_ceiling,
+        transactionsTotalCeiling=total_ceiling,
         savingsByDates=savings_by_dates,
     )
 
@@ -63,20 +63,21 @@ def returns_index(body: ReturnsRequest) -> ReturnsResponse:
 
     savings_by_dates = []
     for (start, end, amount) in k_sums:
-        real_return, _, _ = compute_return(
+        profit, _, _ = compute_return(
             amount, body.age, body.inflation, "index", 0.0
         )
+        rounded = round(profit, 2)
         savings_by_dates.append(
             SavingsByDatesItem(
                 start=start,
                 end=end,
                 amount=amount,
-                return_=round(real_return, 2),
+                profits=rounded,
             )
         )
 
     return ReturnsResponse(
         transactionsTotalAmount=total_amount,
-        totalCeiling=total_ceiling,
+        transactionsTotalCeiling=total_ceiling,
         savingsByDates=savings_by_dates,
     )

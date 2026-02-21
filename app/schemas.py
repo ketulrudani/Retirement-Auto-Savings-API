@@ -206,10 +206,12 @@ class FilterValidTransaction(Transaction):
 
 
 class FilterInvalidTransaction(BaseModel):
-    """Invalid transaction in filter response: date, amount, message only (no ceiling/remanent)."""
+    """Invalid transaction in filter response: extends transaction with message (per API spec)."""
 
     date: datetime
     amount: float
+    ceiling: Optional[float] = None
+    remanent: Optional[float] = None
     message: str
 
     @field_serializer("date")
@@ -267,7 +269,6 @@ class SavingsByDatesItem(BaseModel):
     amount: float
     profits: Optional[float] = None
     taxBenefit: Optional[float] = None
-    return_: Optional[float] = Field(None, alias="return")
 
     model_config = {"populate_by_name": True}
 
@@ -280,7 +281,7 @@ class ReturnsResponse(BaseModel):
     """Response for /returns:nps and /returns:index."""
 
     transactionsTotalAmount: float
-    totalCeiling: float
+    transactionsTotalCeiling: float
     savingsByDates: list[SavingsByDatesItem]
 
 

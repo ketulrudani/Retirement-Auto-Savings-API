@@ -91,6 +91,8 @@ def _filter_classify(
                 FilterInvalidTransaction(
                     date=t.date,
                     amount=t.amount,
+                    ceiling=t.ceiling,
+                    remanent=t.remanent,
                     message="Negative amounts are not allowed",
                 )
             )
@@ -100,6 +102,8 @@ def _filter_classify(
                 FilterInvalidTransaction(
                     date=t.date,
                     amount=t.amount,
+                    ceiling=t.ceiling,
+                    remanent=t.remanent,
                     message="Duplicate transaction",
                 )
             )
