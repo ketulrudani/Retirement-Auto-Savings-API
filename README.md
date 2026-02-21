@@ -113,10 +113,3 @@ Test files include a header comment with test type, validation goal, and run com
 ```
 
 No database or external services are required; the API runs standalone.
-
-## Submission checklist
-
-- [ ] Replace `{name-lastname}` in Dockerfile (line 1), compose.yaml (`image:`), and README Docker commands with your identifier (e.g. `jane-doe`).
-- [ ] Ensure the repository is **public** and the link allows access without extra permission.
-- [ ] Default branch contains: source code, Dockerfile, `compose.yaml`, tests under `test/`, and this README.
-- [ ] Do not push changes after the challenge deadline (post-deadline commits are not considered).

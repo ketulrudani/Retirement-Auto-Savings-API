@@ -21,7 +21,7 @@ def performance(request: Request) -> PerformanceResponse:
         h = int(total_sec // 3600)
         m = int((total_sec % 3600) // 60)
         s = total_sec % 60
-        time_str = f"{h:02d}:{m:02d}:{s:06.3f}" if h or m else f"{s:06.3f}"
+        time_str = f"{h:02d}:{m:02d}:{s:06.3f}"
     else:
         time_str = "00:00:00.000"
 
